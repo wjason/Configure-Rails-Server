@@ -68,6 +68,7 @@
 
 		sudo apt-get install -y wget vim build-essential openssl libreadline6 libreadline6-dev libmysqlclient-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libxml2-dev libxslt-dev libcurl4-openssl-dev autoconf automake libtool imagemagick libmagickwand-dev libpcre3-dev nodejs libpq-dev
 		
+	
 		
 ####安装RVM
 
@@ -138,5 +139,90 @@
 
 * 第一个是git的安装包，其他的是git的依赖安装包
 
-####安装RVM
+####配置Mysql数据库
+
+安装mysql数据库
+
+	sudo apt-get install mysql-server
+	
+过程中会要求你创建一个Root用户的密码
+
+安装完后是自动启动mysql
+
+停止mysql
+
+		sudo stop mysql
+
+开始mysql
+
+		sudo start mysql
+		
+给数据库开一个只能本地访问控制的账号
+
+1. 使用管理员权限进入mysql console
+
+2. 创建新用户
+
+		grant all on *.* to yourusername@localhost identified by 'yourpassword'
+		
+
+####安装Passenger
+
+		gem install passenger
+
+		
+
+####安装nginx服务器
+
+1. 由于 Passenger 需要重新编译 Nginx，如果你之前有安装 Nginx 需要卸载掉。(针对已经有nginx的用户来说，用命令  nginx -v 查看是否有nginx).如果有 
+
+		
+		sudo apt-get remove nginx-common nginx-full nginx
+		
+
+卸载!
+
+2. 用 Passenger 安装 Nginx
+
+		rvm sudo passenger-install-nginx-module
+		
+####配置Nginx init script
+
+
+配置nginx控制脚本
+
+		git clone git://github.com/jnstq/rails-nginx-passenger-ubuntu.git
+		
+		sudo mv rails-nginx-passenger-ubuntu/nginx/nginx /etc/init.d/nginx
+		
+		sudo chmod +x /etc/init.d/nginx
+		
+配置nginx开机启动
+
+		sudo update-rc.d nginx defaults
+		
+		
+####图像处理相关
+
+		sudo apt-get install imagemagick libmagickwand-dev	
+
+####如果用到QRENCODER 来生成二维码的话需要注意
+
+在ubuntu要安装一下依赖库，要不会不断报错装不上相关的GEM。
+
+		libqrencode-dev python-qrencode qrencode
+		
+
+####生成服务器Key
+
+		ssh-keygen
+		
+		配置key登陆
+		cd ~/.ssh
+		
+		touch authorized_keys 
+		
+		sudo chmod 600 .ssh/authorized_keys
+
+
 
