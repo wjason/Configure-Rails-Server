@@ -25,7 +25,7 @@
 
 4. step4:
 		还原/etc/sudoers 文件编写权限，并推出：
-		chomd u-w  /etc/sudoers
+		chmod u-w  /etc/sudoers
 
 
 	之后就可以sudo了；
